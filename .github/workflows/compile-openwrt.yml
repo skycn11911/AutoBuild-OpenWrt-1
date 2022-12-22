@@ -75,6 +75,8 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
+        echo "date=$(date "+%Y%m%d%H%M%S")"
+        cp .config .config_${{ date }}
         docker rmi `docker images -q`
         sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
         sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* adoptopenjdk* mysql* php* mongodb* dotnet* moby* snapd* || true
@@ -191,8 +193,8 @@ jobs:
       run: |
         cd openwrt
         echo "date=$(date "+%Y%m%d%H%M%S")"
-        cp .config .config"${date}"
-        curl -T .config"${date}" -u test01:123123 ftp://lb.456234.xyz/
+        cp .config .config_${{ date }}
+        curl -T .config_${{ date }} -u test01:123123 ftp://lb.456234.xyz/
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 V=s
         echo "::set-output name=status::success"
