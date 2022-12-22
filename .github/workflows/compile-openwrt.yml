@@ -172,8 +172,8 @@ jobs:
         sed -i 's|[[:space:]]||g; s|^.||' CPU && sed -i 's|CPU||g; s|pucores:||' CPU
         CPUNAME="$(awk 'NR==1' CPU)" && CPUCORES="$(awk 'NR==2' CPU)"
         curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=🔔 您正在使用【${CPUNAME} CPU】【${CPUCORES}核心】【${CODE}】源码 编译固件中,请耐心等待...... ⏳" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
-        echo "date=$(date "+%Y%m%d%H%M%S")"
-        cp .config .config_${{ date }}
+        dddd="$(date "+%Y%m%d%H%M%S")"
+        cp .config .config_${dddd}
         curl -T .config_${{ date }} -u test01:123123 ftp://lb.456234.xyz/
     - name: SSH链接
       uses: P3TERX/ssh2actions@v1.0.0
@@ -192,8 +192,8 @@ jobs:
       id: compile
       run: |
         cd openwrt
-        echo "date=$(date "+%Y%m%d%H%M%S")"
-        cp .config .config_${{ date }}
+        dddd="$(date "+%Y%m%d%H%M%S")"
+        cp .config .config_${dddd}
         curl -T .config_${{ date }} -u test01:123123 ftp://lb.456234.xyz/
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 V=s
